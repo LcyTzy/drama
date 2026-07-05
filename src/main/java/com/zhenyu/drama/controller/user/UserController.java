@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequestMapping("/uer/uer")
+@RequestMapping("/user/auth")
 @RestController
 @Api(tags = "C端用户相关接口")
 @Slf4j
