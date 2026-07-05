@@ -14,5 +14,6 @@ public class MessageConstant {
     public static final String ORDER_NOT_FOUND = "订单不存在";
     public static final String ORDER_STATUS_ERROR = "订单状态错误";
     public static final String CATEGORY_BE_RELATED_BY_SETMEAL = "当前分类关联了drama,不能删除";
+    public static final String CANNOT_DELETE_ADMIN = "管理员账号不能删除";
 
 }

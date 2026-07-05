@@ -19,4 +19,6 @@ public interface CategoryService {
     List<Category> list(Integer type);
 
     void startOrStop(Integer status, Long id);
+
+    void batchStatus(Integer status, List<Long> ids);
 }

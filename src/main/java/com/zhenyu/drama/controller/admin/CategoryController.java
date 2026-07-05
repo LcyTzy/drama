@@ -64,4 +64,11 @@ public class CategoryController {
         categoryService.startOrStop(status, id);
         return Result.success();
     }
+
+    @PostMapping("/batchStatus/{status}")
+    @ApiOperation("批量起停分类")
+    public Result<String> batchStatus(@PathVariable Integer status, @RequestBody List<Long> ids) {
+        categoryService.batchStatus(status, ids);
+        return Result.success();
+    }
 }

@@ -7,6 +7,8 @@ import com.zhenyu.pojo.dto.EmployeePageQueryDTO;
 import com.zhenyu.pojo.entity.Employee;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface EmployeeService {
     /**
      * 员工登录
@@ -46,4 +48,20 @@ public interface EmployeeService {
      * @param id
      */
     void startOrStop(Integer status, @Param("id") Long id);
+
+    /**
+     * 批量启用禁用员工账号
+     * @param status
+     * @param ids
+     */
+    void batchStatus(Integer status, List<Long> ids);
+
+    /**
+     * 修改密码
+     * @param oldPassword
+     * @param newPassword
+     */
+    void editPassword(String oldPassword, String newPassword);
+
+    void deleteById(Long id);
 }

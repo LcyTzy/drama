@@ -12,6 +12,7 @@ import com.zhenyu.drama.service.EmployeeService;
 import com.zhenyu.pojo.dto.EmployeeDTO;
 import com.zhenyu.pojo.dto.EmployeeLoginDTO;
 import com.zhenyu.pojo.dto.EmployeePageQueryDTO;
+import com.zhenyu.pojo.dto.PasswordDTO;
 import com.zhenyu.pojo.entity.Employee;
 import com.zhenyu.pojo.vo.EmployeeLoginVO;
 import io.swagger.annotations.Api;
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -112,4 +114,35 @@ public class EmployeeController {
         employeeService.startOrStop(status, id);
         return Result.success();
     }
+
+    @PostMapping("/employee/batchStatus/{status}")
+    @ApiOperation(value = "批量启用禁用员工账号")
+    public Result batchStatus(@PathVariable Integer status, @RequestBody List<Long> ids) {
+        employeeService.batchStatus(status, ids);
+        return Result.success();
+    }
+
+    
+
+    @GetMapping("/employee/{id}")
+    @ApiOperation(value = "根据id查询员工")
+    public Result<Employee> getById(@PathVariable Long id) {
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+    @PutMapping("/employee/editPassword")
+    @ApiOperation(value = "修改密码")
+    public Result<String> editPassword(@RequestBody PasswordDTO passwordDTO) {
+        employeeService.editPassword(passwordDTO.getOldPassword(), passwordDTO.getNewPassword());
+        return Result.success();
+    }
+
+    @DeleteMapping("/employee")
+    @ApiOperation(value = "删除员工")
+    public Result<String> delete(Long id) {
+        employeeService.deleteById(id);
+        return Result.success();
+    }
+
 }

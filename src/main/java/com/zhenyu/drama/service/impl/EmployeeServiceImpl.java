@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.zhenyu.common.constant.MessageConstant;
 import com.zhenyu.common.constant.PasswordConstant;
 import com.zhenyu.common.constant.StatusConstant;
+import com.zhenyu.common.context.BaseContext;
 import com.zhenyu.common.exception.*;
 import com.zhenyu.common.utils.PageResult;
 import com.zhenyu.drama.mapper.EmployeeMapper;
@@ -113,5 +114,36 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.update(employee);
     }
 
+    @Override
+    public void batchStatus(Integer status, List<Long> ids) {
+        for (Long id : ids) {
+            Employee employee = Employee.builder().status(status).id(id).build();
+            employeeMapper.update(employee);
+        }
+    }
 
+    @Override
+    public void editPassword(String oldPassword, String newPassword) {
+        Long empId = BaseContext.getCurrentId();
+        Employee employee = employeeMapper.getById(empId);
+
+        // 验证旧密码
+        String oldPasswordMd5 = DigestUtils.md5DigestAsHex(oldPassword.getBytes());
+        if (!oldPasswordMd5.equals(employee.getPassword())) {
+            throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
+        }
+
+        // 新密码加密后更新
+        String newPasswordMd5 = DigestUtils.md5DigestAsHex(newPassword.getBytes());
+        employeeMapper.updatePassword(empId, newPasswordMd5);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Employee employee = employeeMapper.getById(id);
+        if ("admin".equals(employee.getRole())) {
+            throw new DeleteAdminException(MessageConstant.CANNOT_DELETE_ADMIN);
+        }
+        employeeMapper.deleteById(id);
+    }
 }

@@ -82,4 +82,16 @@ public class CategoryServiceImpl implements CategoryService {
                 .build();
         categoryMapper.update(category);
     }
+
+    @Override
+    public void batchStatus(Integer status, List<Long> ids) {
+        for (Long id : ids) {
+            Category category = Category.builder()
+                    .id(id)
+                    .status(status)
+                    .build();
+            categoryMapper.update(category);
+        }
+
+    }
 }

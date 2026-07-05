@@ -7,7 +7,9 @@ import com.zhenyu.pojo.dto.EmployeePageQueryDTO;
 import com.zhenyu.pojo.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -63,4 +65,18 @@ public interface EmployeeMapper {
     @AutoFill(value = OperationType.UPDATE)
     void update(Employee employee);
 
+    /**
+     * 根据id修改密码
+     * @param id
+     * @param newPassword
+     */
+    @Update("update employee set password = #{newPassword} where id = #{id}")
+    void updatePassword(@Param("id") Long id, @Param("newPassword") String newPassword);
+
+    /**
+     * 根据id删除员工
+     * @param id
+     */
+    @Update("delete from employee where id = #{id}")
+    void deleteById(Long id);
 }
