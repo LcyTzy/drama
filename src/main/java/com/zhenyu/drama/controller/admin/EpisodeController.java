@@ -25,20 +25,31 @@ public class EpisodeController {
     @PostMapping
     @ApiOperation("上传/新增剧集")
     public Result<String> save(
-            @RequestParam Long dramaId,
-            @RequestParam Integer episodeNum,
+            @RequestParam(required = false) Long dramaId,
+            @RequestParam(required = false) Integer episodeNum,
             @RequestParam(required = false) String title,
-            @RequestParam MultipartFile videoFile,
-            @RequestParam(defaultValue = "0") Integer isFree) {
+            @RequestParam(required = false) MultipartFile videoFile,
+            @RequestParam(required = false, defaultValue = "0") Integer isFree,
+            @RequestBody(required = false) EpisodeDTO jsonBody) {
 
-        EpisodeDTO episodeDTO = new EpisodeDTO();
-        episodeDTO.setDramaId(dramaId);
-        episodeDTO.setEpisodeNum(episodeNum);
-        episodeDTO.setTitle(title);
-        episodeDTO.setIsFree(isFree);
-        episodeDTO.setSort(episodeNum);
-
-        episodeService.save(episodeDTO, videoFile);
+        EpisodeDTO episodeDTO;
+        if (jsonBody != null && jsonBody.getDramaId() != null) {
+            // JSON 请求体（前端直传 OSS 后）
+            episodeDTO = jsonBody;
+            if (episodeDTO.getSort() == null) {
+                episodeDTO.setSort(episodeDTO.getEpisodeNum());
+            }
+            episodeService.saveWithVideoUrl(episodeDTO);
+        } else {
+            // Multipart 请求（后端上传）
+            episodeDTO = new EpisodeDTO();
+            episodeDTO.setDramaId(dramaId);
+            episodeDTO.setEpisodeNum(episodeNum);
+            episodeDTO.setTitle(title);
+            episodeDTO.setIsFree(isFree);
+            episodeDTO.setSort(episodeNum);
+            episodeService.save(episodeDTO, videoFile);
+        }
         return Result.success();
     }
 

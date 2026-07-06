@@ -10,8 +10,6 @@ import java.util.List;
 @Mapper
 public interface EpisodeMapper {
 
-    @Insert("insert into episode (drama_id, episode_num, title, video_url, duration, file_size, is_free, sort, create_time, update_time) " +
-            "values (#{dramaId}, #{episodeNum}, #{title}, #{videoUrl}, #{duration}, #{fileSize}, #{isFree}, #{sort}, #{createTime}, #{updateTime})")
     @AutoFill(value = OperationType.INSERT)
     void insert(Episode episode);
 

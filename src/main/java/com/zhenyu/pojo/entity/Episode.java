@@ -25,4 +25,6 @@ public class Episode {
     private Integer sort;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
+    private Long createUser;
+    private Long updateUser;
 }

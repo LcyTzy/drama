@@ -31,6 +31,14 @@ public class EpisodeServiceImpl implements EpisodeService {
     private AliOssUtil aliOssUtil;
 
     @Override
+    public void saveWithVideoUrl(EpisodeDTO episodeDTO) {
+        Episode episode = new Episode();
+        BeanUtils.copyProperties(episodeDTO, episode);
+        episodeMapper.insert(episode);
+        updateTotalEpisodes(episodeDTO.getDramaId());
+    }
+
+    @Override
     public void save(EpisodeDTO episodeDTO, MultipartFile videoFile) {
         Episode episode = new Episode();
         BeanUtils.copyProperties(episodeDTO, episode);

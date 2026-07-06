@@ -10,6 +10,8 @@ public interface EpisodeService {
 
     void save(EpisodeDTO episodeDTO, MultipartFile videoFile);
 
+    void saveWithVideoUrl(EpisodeDTO episodeDTO);
+
     void update(EpisodeDTO episodeDTO);
 
     List<Episode> listByDramaId(Long dramaId);
