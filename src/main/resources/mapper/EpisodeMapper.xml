@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenyu.drama.mapper.EpisodeMapper">
+
+    <insert id="insert">
+        insert into episode
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dramaId != null">drama_id,</if>
+            <if test="episodeNum != null">episode_num,</if>
+            <if test="title != null">title,</if>
+            <if test="videoUrl != null">video_url,</if>
+            <if test="duration != null">duration,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="isFree != null">is_free,</if>
+            <if test="sort != null">sort,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="updateUser != null">update_user,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dramaId != null">#{dramaId},</if>
+            <if test="episodeNum != null">#{episodeNum},</if>
+            <if test="title != null">#{title},</if>
+            <if test="videoUrl != null">#{videoUrl},</if>
+            <if test="duration != null">#{duration},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="isFree != null">#{isFree},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+        </trim>
+    </insert>
+
+    <update id="update">
+        update episode
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="videoUrl != null">video_url = #{videoUrl},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="isFree != null">is_free = #{isFree},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

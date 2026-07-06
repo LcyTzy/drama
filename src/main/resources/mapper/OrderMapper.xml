@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenyu.drama.mapper.OrderMapper">
+
+
+    <select id="conditionSearch" resultType="com.zhenyu.pojo.vo.OrderVO">
+        SELECT o.id, o.order_no, u.nickname AS userName, o.total_amount, o.status, o.create_time, o.pay_time
+        FROM orders o
+        LEFT JOIN user u ON o.user_id = u.id
+        <where>
+            <if test="orderNo != null and orderNo != ''">
+                AND o.order_no = #{orderNo}
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                AND u.phone LIKE CONCAT('%', #{userPhone}, '%')
+            </if>
+            <if test="status != null">
+                AND o.status = #{status}
+            </if>
+            <if test="beginTime != null and beginTime != ''">
+                AND DATE(o.create_time) &gt;= #{beginTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                AND DATE(o.create_time) &lt;= #{endTime}
+            </if>
+        </where>
+        ORDER BY o.create_time DESC
+    </select>
+
+    <select id="getRevenue" resultType="java.math.BigDecimal">
+        SELECT COALESCE(SUM(total_amount), 0) FROM orders WHERE status = 2
+        <if test="begin != null and end != null">
+            AND DATE(create_time) BETWEEN #{begin} AND #{end}
+        </if>
+    </select>
+
+    <select id="getOrderCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM orders WHERE status = 2
+        <if test="begin != null and end != null">
+            AND DATE(create_time) BETWEEN #{begin} AND #{end}
+        </if>
+    </select>
+</mapper>
