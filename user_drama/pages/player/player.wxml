@@ -1,0 +1,118 @@
+<!--pages/player/player.wxml-->
+<view class="page-container">
+  <!-- 视频播放器 -->
+  <view class="video-wrapper">
+    <video
+      id="videoPlayer"
+      class="video-player"
+      src="{{videoUrl}}"
+      bindtimeupdate="onTimeUpdate"
+      bindended="onVideoEnded"
+      binderror="onVideoError"
+      show-center-play-btn
+      show-fullscreen-btn
+      object-fit="contain"
+      poster=""
+    ></video>
+    <!-- 弹幕浮动层 -->
+    <view class="danmaku-overlay" wx:if="{{showDanmaku}}">
+      <view
+        class="danmaku-float {{item.animClass}}"
+        wx:for="{{activeDanmakus}}"
+        wx:key="id"
+        style="top: {{item.top}}rpx; color: {{item.color || '#FFFFFF'}}; animation-duration: {{item.duration}}s;"
+      >
+        <text>{{item.content}}</text>
+      </view>
+    </view>
+    <view class="video-loading" wx:if="{{!videoUrl && loading}}">
+      <text>加载中...</text>
+    </view>
+    <!-- 弹幕开关按钮 -->
+    <view class="danmaku-toggle" bindtap="toggleDanmaku">
+      <text>{{showDanmaku ? '弹幕开' : '弹幕关'}}</text>
+    </view>
+  </view>
+
+  <!-- 剧集信息 -->
+  <view class="episode-info-bar">
+    <text class="episode-title-text">{{episodeTitle}}</text>
+    <text class="episode-num-text">第{{episodeNum}}集</text>
+  </view>
+
+  <!-- 剧集列表（横向滚动） -->
+  <view class="episode-list-section">
+    <view class="section-label">选集</view>
+    <scroll-view class="episode-scroll" scroll-x enable-flex>
+      <view
+        class="episode-num-item {{item.id === episodeId ? 'active' : ''}}"
+        wx:for="{{episodes}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="onSwitchEpisode"
+      >
+        <text>{{item.episodeNum}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 弹幕区域 -->
+  <view class="danmaku-section">
+    <view class="section-label">弹幕</view>
+    <!-- 发送弹幕输入框 -->
+    <view class="danmaku-input-bar">
+      <input
+        class="danmaku-input"
+        placeholder="发条弹幕吧~"
+        value="{{danmakuInput}}"
+        bindinput="onDanmakuInput"
+        bindconfirm="onSendDanmaku"
+        confirm-type="send"
+        maxlength="50"
+      />
+      <view class="danmaku-send-btn" bindtap="onSendDanmaku">发送</view>
+    </view>
+    <!-- 弹幕列表 -->
+    <scroll-view class="danmaku-list" scroll-y bindtap="onDanmakuListTap">
+      <view
+        class="danmaku-item-wrapper"
+        wx:for="{{danmakus}}"
+        wx:key="id"
+      >
+        <view
+          class="danmaku-item {{swipedDanmakuId === item.id ? 'swiped' : ''}}"
+          bindtouchstart="onDanmakuTouchStart"
+          bindtouchmove="onDanmakuTouchMove"
+          bindtouchend="onDanmakuTouchEnd"
+          data-id="{{item.id}}"
+          data-index="{{index}}"
+        >
+          <view class="danmaku-meta">
+            <text class="danmaku-nickname">{{item.nickname}}</text>
+            <text class="danmaku-time">{{item.timestamp}}s</text>
+          </view>
+          <view class="danmaku-content" style="color: {{item.color || '#333'}}">{{item.content}}</view>
+        </view>
+        <view class="danmaku-delete-btn" wx:if="{{swipedDanmakuId === item.id}}" data-id="{{item.id}}" bindtap="onDeleteDanmaku">
+          <text>删除</text>
+        </view>
+      </view>
+      <view class="danmaku-empty" wx:if="{{danmakus.length === 0}}">
+        <text>暂无弹幕，快来发第一条吧~</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部占位，防止被固定底栏遮挡 -->
+  <view class="bottom-placeholder"></view>
+
+  <!-- 底部上下集导航 -->
+  <view class="bottom-nav-bar">
+    <view class="nav-btn {{currentEpisodeIndex <= 0 ? 'disabled' : ''}}" bindtap="onPrevEpisode">
+      <text>上一集</text>
+    </view>
+    <view class="nav-btn {{currentEpisodeIndex >= episodes.length - 1 ? 'disabled' : ''}}" bindtap="onNextEpisode">
+      <text>下一集</text>
+    </view>
+  </view>
+</view>

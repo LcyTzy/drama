@@ -1,0 +1,57 @@
+<!--pages/category/category.wxml-->
+<view class="page-container">
+  <!-- 左侧分类栏 -->
+  <scroll-view class="sidebar" scroll-y enhanced show-scrollbar="{{false}}">
+    <view
+      class="sidebar-item {{activeCategory.id === item.id ? 'active' : ''}}"
+      wx:for="{{categories}}"
+      wx:key="id"
+      data-category="{{item}}"
+      bindtap="onCategoryTap"
+    >
+      <text>{{item.name}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 右侧内容区 -->
+  <scroll-view class="content" scroll-y enhanced show-scrollbar="{{false}}">
+    <!-- 短剧网格 -->
+    <view class="drama-grid" wx:if="{{dramas.length > 0}}">
+      <view
+        class="drama-card"
+        wx:for="{{dramas}}"
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="goToDetail"
+      >
+        <view class="cover-wrapper">
+          <image
+            wx:if="{{item.coverUrl}}"
+            class="cover-image"
+            src="{{item.coverUrl}}"
+            mode="aspectFill"
+            lazy-load
+          />
+          <view wx:else class="cover-placeholder">
+            <text class="placeholder-text">暂无封面</text>
+          </view>
+        </view>
+        <view class="card-info">
+          <text class="drama-title">{{item.title}}</text>
+          <text class="episode-count">共{{item.totalEpisodes}}集</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{dramas.length === 0 && !loading}}">
+      <text class="empty-icon">🎬</text>
+      <text class="empty-text">暂无短剧</text>
+    </view>
+
+    <!-- 加载中 -->
+    <view class="loading-tip" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+  </scroll-view>
+</view>

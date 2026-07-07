@@ -1,0 +1,113 @@
+<!--pages/drama-detail/drama-detail.wxml-->
+<view class="page-container">
+  <!-- 封面图 -->
+  <view class="cover-section">
+    <image class="cover-image" src="{{drama.coverUrl}}" mode="aspectFill" wx:if="{{drama.coverUrl}}" />
+    <view class="cover-placeholder" wx:else>
+      <text>暂无封面</text>
+    </view>
+  </view>
+
+  <!-- 短剧信息 -->
+  <view class="info-section">
+    <text class="drama-title">{{drama.title}}</text>
+    <view class="drama-tags">
+      <text class="category-tag" wx:if="{{drama.categoryName}}">{{drama.categoryName}}</text>
+    </view>
+    <text class="drama-desc">{{drama.description}}</text>
+  </view>
+
+  <!-- 价格信息 -->
+  <view class="price-section">
+    <block wx:if="{{drama.priceType === 1}}">
+      <text class="price-text">¥{{drama.pricePerEpisode}}元/集</text>
+      <text class="price-label">按集解锁</text>
+    </block>
+    <block wx:elif="{{drama.priceType === 2}}">
+      <text class="price-text">¥{{drama.packagePrice}}元</text>
+      <text class="price-label">整部买断</text>
+    </block>
+  </view>
+
+  <!-- 剧集列表 -->
+  <view class="episode-section">
+    <view class="section-header">
+      <text class="section-title">剧集列表</text>
+      <text class="episode-count">共{{episodes.length}}集</text>
+    </view>
+    <view class="episode-list">
+      <view
+        class="episode-item {{item.isFree === 1 || item.isUnlocked === 1 ? '' : 'locked'}}"
+        wx:for="{{episodes}}"
+        wx:key="id"
+        data-index="{{index}}"
+        bindtap="onEpisodeTap"
+      >
+        <view class="episode-num-circle">
+          <text>{{item.episodeNum}}</text>
+        </view>
+        <view class="episode-info">
+          <text class="episode-title">{{item.title}}</text>
+          <text class="episode-duration">{{item.durationText}}</text>
+        </view>
+        <view class="episode-status">
+          <text class="tag-free" wx:if="{{item.isFree === 1}}">免费</text>
+          <text class="tag-unlocked" wx:elif="{{item.isUnlocked === 1}}">已解锁</text>
+          <text class="tag-locked" wx:else>付费</text>
+          <text class="lock-icon" wx:if="{{item.isFree !== 1 && item.isUnlocked !== 1}}">🔒</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view class="bottom-placeholder"></view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <block wx:if="{{!isLoggedIn}}">
+      <view class="btn-login" bindtap="goToLogin">登录</view>
+    </block>
+    <block wx:else>
+      <view class="btn-watch" bindtap="onWatchFirst">立即观看</view>
+      <view class="btn-buy" wx:if="{{drama.priceType === 2 && drama.purchased !== 1}}" bindtap="onBuyAll">整部购买 ¥{{drama.packagePrice}}</view>
+      <view class="btn-buy" wx:if="{{drama.priceType === 1 && drama.purchased !== 1}}" bindtap="onOpenPayDialog">选集购买</view>
+      <view class="btn-bought" wx:if="{{drama.purchased === 1}}">已购买</view>
+    </block>
+  </view>
+
+  <!-- 购买弹窗 -->
+  <view class="pay-dialog-mask" wx:if="{{showPayDialog}}" bindtap="onClosePayDialog">
+    <view class="pay-dialog" catchtap="">
+      <view class="dialog-header">
+        <text class="dialog-title">选择剧集</text>
+        <text class="dialog-close" bindtap="onClosePayDialog">×</text>
+      </view>
+      <scroll-view class="dialog-episode-list" scroll-y>
+        <view
+          class="dialog-episode-item {{item.selected ? 'selected' : ''}}"
+          wx:for="{{episodes}}"
+          wx:key="id"
+          wx:if="{{item.isFree !== 1 && item.isUnlocked !== 1}}"
+          data-index="{{index}}"
+          bindtap="toggleEpisodeSelection"
+        >
+          <view class="checkbox {{item.selected ? 'checked' : ''}}">
+            <text wx:if="{{item.selected}}">✓</text>
+          </view>
+          <view class="dialog-episode-info">
+            <text>第{{item.episodeNum}}集 {{item.title}}</text>
+          </view>
+          <text class="dialog-episode-price">¥{{drama.pricePerEpisode}}</text>
+        </view>
+      </scroll-view>
+      <view class="dialog-footer">
+        <view class="dialog-total">
+          <text>已选{{selectedEpisodes.length}}集</text>
+          <text class="dialog-total-price">合计: ¥{{totalPrice}}</text>
+        </view>
+        <view class="btn-confirm-pay" bindtap="onBuySelected">确认购买</view>
+      </view>
+    </view>
+  </view>
+</view>

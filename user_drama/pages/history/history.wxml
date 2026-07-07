@@ -1,0 +1,45 @@
+<view class="container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-wrap">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:elif="{{histories.length === 0}}" class="empty-state">
+    <text class="empty-icon">📺</text>
+    <text class="empty-text">暂无观看历史</text>
+  </view>
+
+  <!-- 历史列表 -->
+  <view wx:else class="history-list">
+    <view
+      class="history-item"
+      wx:for="{{histories}}"
+      wx:key="dramaId"
+      bindtap="goToDetail"
+      data-drama-id="{{item.dramaId}}"
+    >
+      <!-- 封面 -->
+      <image
+        class="cover"
+        src="{{item.coverUrl}}"
+        mode="aspectFill"
+        wx:if="{{item.coverUrl}}"
+      />
+      <view class="cover-placeholder" wx:else>
+        <text class="placeholder-text">暂无封面</text>
+      </view>
+
+      <!-- 信息 -->
+      <view class="info">
+        <text class="title">{{item.dramaTitle}}</text>
+        <text class="episode-info">看到第 {{item.episodeNum}} 集</text>
+        <text class="progress">进度：{{item.progress}}</text>
+        <text class="time">{{item.updateTime}}</text>
+      </view>
+
+      <!-- 箭头 -->
+      <text class="arrow">›</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,111 @@
+/* pages/purchased/purchased.wxss */
+.page-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+/* 列表容器 */
+.list-container {
+  padding: 20rpx;
+}
+
+/* 每个短剧卡片 */
+.drama-item {
+  display: flex;
+  flex-direction: row;
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+/* 封面图片 */
+.cover-image {
+  width: 160rpx;
+  height: 220rpx;
+  border-radius: 8rpx;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+/* 信息区域 */
+.drama-info {
+  flex: 1;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 标题 */
+.drama-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 标签行 */
+.tag-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* 标签通用 */
+.tag {
+  display: inline-block;
+  padding: 4rpx 16rpx;
+  border-radius: 6rpx;
+  font-size: 22rpx;
+  margin-right: 12rpx;
+}
+
+/* 整部解锁标签 */
+.tag-all {
+  background-color: #e8f5e9;
+  color: #4caf50;
+}
+
+/* 单集解锁标签 */
+.tag-single {
+  background-color: #fff3e0;
+  color: #ff9800;
+}
+
+/* 已解锁集数 */
+.unlock-count {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 200rpx 0;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* 加载中 */
+.loading-tip {
+  text-align: center;
+  padding: 40rpx 0;
+  color: #999;
+  font-size: 26rpx;
+}

@@ -1,0 +1,415 @@
+/* pages/drama-detail/drama-detail.wxss */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding-bottom: 120rpx;
+}
+
+/* 封面区域 16:9 */
+.cover-section {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background-color: #e8e8e8;
+  overflow: hidden;
+}
+
+.cover-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cover-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbb;
+  font-size: 28rpx;
+}
+
+/* 信息区域 */
+.info-section {
+  padding: 24rpx;
+  background-color: #ffffff;
+}
+
+.drama-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #333;
+  display: block;
+  line-height: 1.4;
+}
+
+.drama-tags {
+  margin-top: 16rpx;
+  display: flex;
+  align-items: center;
+}
+
+.category-tag {
+  display: inline-block;
+  padding: 6rpx 16rpx;
+  font-size: 22rpx;
+  color: #e94560;
+  background-color: rgba(233, 69, 96, 0.1);
+  border-radius: 6rpx;
+}
+
+.drama-desc {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 价格信息 */
+.price-section {
+  padding: 24rpx;
+  background-color: #ffffff;
+  margin-top: 16rpx;
+  display: flex;
+  align-items: center;
+}
+
+.price-text {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #e94560;
+}
+
+.price-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-left: 16rpx;
+}
+
+/* 剧集列表 */
+.episode-section {
+  margin-top: 16rpx;
+  background-color: #ffffff;
+  padding: 24rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.episode-count {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.episode-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.episode-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.episode-item:last-child {
+  border-bottom: none;
+}
+
+.episode-item.locked {
+  opacity: 0.6;
+}
+
+.episode-num-circle {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.episode-num-circle text {
+  font-size: 24rpx;
+  color: #666;
+  font-weight: 600;
+}
+
+.episode-info {
+  flex: 1;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.episode-title {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.4;
+}
+
+.episode-duration {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.episode-status {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.tag-free {
+  font-size: 22rpx;
+  color: #07c160;
+  padding: 4rpx 12rpx;
+  background-color: rgba(7, 193, 96, 0.1);
+  border-radius: 4rpx;
+}
+
+.tag-unlocked {
+  font-size: 22rpx;
+  color: #576b95;
+  padding: 4rpx 12rpx;
+  background-color: rgba(87, 107, 149, 0.1);
+  border-radius: 4rpx;
+}
+
+.tag-locked {
+  font-size: 22rpx;
+  color: #fa9d3b;
+  padding: 4rpx 12rpx;
+  background-color: rgba(250, 157, 59, 0.1);
+  border-radius: 4rpx;
+}
+
+.lock-icon {
+  font-size: 28rpx;
+  margin-left: 8rpx;
+}
+
+/* 底部占位 */
+.bottom-placeholder {
+  height: 120rpx;
+}
+
+/* 底部操作栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100rpx;
+  background-color: #ffffff;
+  border-top: 1rpx solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+  gap: 20rpx;
+  z-index: 100;
+}
+
+.btn-login {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  background-color: #e94560;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 36rpx;
+}
+
+.btn-watch {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  background-color: #e94560;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 36rpx;
+}
+
+.btn-buy {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  background-color: #fa9d3b;
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 600;
+  border-radius: 36rpx;
+}
+
+.btn-bought {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  background-color: #07c160;
+  color: #ffffff;
+  font-size: 28rpx;
+  font-weight: 600;
+  border-radius: 36rpx;
+}
+
+/* 购买弹窗 */
+.pay-dialog-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.pay-dialog {
+  width: 100%;
+  max-height: 70vh;
+  background-color: #ffffff;
+  border-radius: 24rpx 24rpx 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx 24rpx 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.dialog-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.dialog-close {
+  font-size: 40rpx;
+  color: #999;
+  padding: 0 16rpx;
+}
+
+.dialog-episode-list {
+  flex: 1;
+  max-height: 50vh;
+  padding: 0 24rpx;
+}
+
+.dialog-episode-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.dialog-episode-item.selected {
+  background-color: rgba(233, 69, 96, 0.05);
+}
+
+.checkbox {
+  width: 40rpx;
+  height: 40rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 6rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 24rpx;
+  color: #ffffff;
+}
+
+.checkbox.checked {
+  background-color: #e94560;
+  border-color: #e94560;
+}
+
+.dialog-episode-info {
+  flex: 1;
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.dialog-episode-price {
+  font-size: 28rpx;
+  color: #e94560;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.dialog-footer {
+  padding: 20rpx 24rpx;
+  border-top: 1rpx solid #f0f0f0;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+}
+
+.dialog-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.dialog-total text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.dialog-total-price {
+  font-size: 32rpx;
+  color: #e94560;
+  font-weight: 700;
+}
+
+.btn-confirm-pay {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background-color: #e94560;
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 40rpx;
+}
