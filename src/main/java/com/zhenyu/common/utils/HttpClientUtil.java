@@ -39,7 +39,7 @@ public class HttpClientUtil {
         CloseableHttpResponse response = null;
 
         try {
-            URIBuilder builder = new URIBuilder();
+            URIBuilder builder = new URIBuilder(url);
             if (paramMap != null) {
                 for (String key : paramMap.keySet()) {
                     builder.addParameter(key, paramMap.get(key));

@@ -4,16 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EpisodeVO {
-    private Long id;
-    private Integer episodeNum;
-    private String title;
-    private Integer duration;
-    private Integer isFree;
-    private Integer isUnlocked;
+public class CreateOrderVO {
+    private String orderNo;
+    private BigDecimal payAmount;
+    private String prepayId;
 }

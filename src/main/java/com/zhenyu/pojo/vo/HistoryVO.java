@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EpisodeVO {
-    private Long id;
+public class HistoryVO {
+    private Long dramaId;
+    private String dramaTitle;
+    private String coverUrl;
     private Integer episodeNum;
-    private String title;
-    private Integer duration;
-    private Integer isFree;
-    private Integer isUnlocked;
+    private String progress;
+    private String updateTime;
 }

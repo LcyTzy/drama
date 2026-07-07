@@ -10,6 +10,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface DramaMapper {
 
@@ -32,4 +34,11 @@ public interface DramaMapper {
 
     @Delete("delete from drama where id = #{id}")
     void deleteById(Long id);
+
+    @Select("<script>" +
+            "select * from drama where status = 1" +
+            "<if test='categoryId != null'> and category_id = #{categoryId}</if>" +
+            " order by views desc, create_time desc" +
+            "</script>")
+    List<Drama> listByCategoryId(Long categoryId);
 }

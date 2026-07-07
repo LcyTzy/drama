@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class WeChatProperties {
     private String appid;                 // 微信小程序 AppId
-    private String secret;                // 微信小程序 AppSecret
+    private String appsecret;             // 微信小程序 AppSecret
     private String mchid;                 // 商户号
     private String mchSerialNo;           // 商户 API 证书序列号
     private String privateKeyFilePath;    // 商户私钥文件路径（classpath: 或绝对路径）

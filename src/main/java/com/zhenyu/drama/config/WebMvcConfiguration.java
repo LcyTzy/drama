@@ -2,6 +2,7 @@ package com.zhenyu.drama.config;
 
 import com.zhenyu.common.utils.JacksonObjectMapper;
 import com.zhenyu.drama.interceptor.JwtTokenAdminInterceptor;
+import com.zhenyu.drama.interceptor.JwtTokenUserInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport{
     @Autowired
     private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
 
+    @Autowired
+    private JwtTokenUserInterceptor jwtTokenUserInterceptor;
+
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
         log.info("开始注册自定义拦截器...");
@@ -30,6 +34,12 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport{
                 .addPathPatterns("/admin/**")              // 拦截管理端所有请求
                 .excludePathPatterns("/admin/login")       // 登录接口放行
                 .excludePathPatterns("/admin/logout");     // 登出接口放行
+
+        registry.addInterceptor(jwtTokenUserInterceptor)
+                .addPathPatterns("/user/**")               // 拦截用户端所有请求
+                .excludePathPatterns("/user/auth/login")   // 登录接口放行
+                .excludePathPatterns("/user/auth/sendCode") // 发送验证码放行
+                .excludePathPatterns("/user/auth/loginByPhone"); // 手机号登录放行
     }
 
     /**

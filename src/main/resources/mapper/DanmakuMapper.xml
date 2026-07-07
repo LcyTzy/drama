@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhenyu.drama.mapper.DanmakuMapper">
+
+    <select id="listByEpisodeId" resultType="com.zhenyu.pojo.vo.DanmakuVO">
+        select d.id, d.content, d.timestamp, d.color, u.nickname
+        from danmaku d
+        left join user u on d.user_id = u.id
+        where d.episode_id = #{episodeId}
+        <if test="startTime != null">
+            and d.timestamp &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and d.timestamp &lt;= #{endTime}
+        </if>
+        order by d.timestamp asc
+    </select>
+</mapper>
